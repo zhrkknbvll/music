@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Player</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+        }
+
+        .header {
+            padding: 20px;
+            background: #1a1a1a;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .artist {
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1db954;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    🎵 My Music App
+</div>
+
+<div class="container">
+
+    {% for song in songs %}
+    <div class="card">
+
+        <div class="badge">TRACK</div>
+
+        <div class="title">{{ song.title }}</div>
+        <div class="artist">{{ song.artist }}</div>
+
+        <audio controls>
+            <source src="{{ song.audio_file.url }}">
+        </audio>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
