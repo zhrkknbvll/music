@@ -27,3 +27,22 @@ class SongListCreateView(generics.ListCreateAPIView):
 def song_list(request):
     songs = Song.objects.all()
     return render(request, "music/song_list.html", {"songs": songs})
+
+
+
+def song_list(request):
+    query = request.GET.get("q")
+
+    if query:
+        songs = Song.objects.filter(title__icontains=query)
+    else:
+        songs = Song.objects.all()
+
+    return render(
+        request,
+        "music/song_list.html",
+        {
+            "songs": songs,
+            "query": query
+        }
+    )

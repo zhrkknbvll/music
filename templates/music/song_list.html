@@ -18,12 +18,42 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-            letter-spacing: 1px;
+        }
+
+        .search-box {
+            text-align: center;
+            padding: 20px;
+            background: #161616;
+        }
+
+        .search-box input {
+            width: 400px;
+            max-width: 80%;
+            padding: 12px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: #1db954;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .search-box button:hover {
+            opacity: 0.9;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             padding: 20px;
         }
@@ -37,22 +67,7 @@
         }
 
         .card:hover {
-            transform: scale(1.03);
-        }
-
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .artist {
-            color: #aaa;
-            margin-bottom: 10px;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 10px;
+            transform: translateY(-5px);
         }
 
         .badge {
@@ -63,13 +78,45 @@
             font-size: 12px;
             margin-bottom: 10px;
         }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .artist {
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        .empty {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+        }
     </style>
 </head>
-
 <body>
 
 <div class="header">
     🎵 My Music App
+</div>
+
+<div class="search-box">
+    <form method="GET">
+        <input
+            type="text"
+            name="q"
+            placeholder="🔍 Поиск песни или исполнителя..."
+            value="{{ query|default:'' }}"
+        >
+        <button type="submit">Найти</button>
+    </form>
 </div>
 
 <div class="container">
@@ -80,12 +127,20 @@
         <div class="badge">TRACK</div>
 
         <div class="title">{{ song.title }}</div>
-        <div class="artist">{{ song.artist }}</div>
+
+        <div class="artist">
+            {{ song.artist }}
+        </div>
 
         <audio controls>
             <source src="{{ song.audio_file.url }}">
+            Ваш браузер не поддерживает аудио.
         </audio>
 
+    </div>
+    {% empty %}
+    <div class="empty">
+        Песни не найдены 🎵
     </div>
     {% endfor %}
 
